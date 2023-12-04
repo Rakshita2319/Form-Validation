@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form Validation</title>
+    <script src="jquery.js"></script>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 130%;
+
+    }
+    .ret{
+        width: 550px;
+        margin: 0 auto;
+    }
+    label{
+        width: 200px;
+        float: left;
+        position: relative;
+        top: 12px;
+    }
+    input{
+        width: 320px;
+        font-size: 25px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px 5px 12px 5px;
+    }
+    .yes{
+        margin-bottom: 10px;
+    }
+    #submit{
+        width: 130px;
+        margin-left: 200px;
+    }
+    #error{
+        color: red;
+        font-size: 90%;
+    }
+    #success{
+       color: green;
+       font-size: 90%;
+    }
+
+</style>
+</head>
+<body>
+    <div id="error"></div>
+    <div id="success"></div>
+<div class="ret">
+<div class="yes">
+    <label for="Email">Email</label>
+    <input type="text" id="Email" name="Email">
+</div>
+<div class="yes">
+    <label for="Phone">Phone-Number</label>
+    <input type="text" id="Phone" name="Phone">
+</div>
+<div class="yes">
+    <label for="Password">Password</label>
+    <input type="Password" id="Password" name="Password">
+</div>
+<div class="yes">
+    <label for="ConfirmPassword">Confirm-Password</label>
+    <input type="Password" id="ConfirmPassword" name="ConfirmPassword">
+</div>
+<input id="submit" type="submit">
+</div>
+<script>
+    var errmsg="";
+    var missing="";
+    function isEmail(email) {
+    var regex= /^[A-Z0-9_'%=+!`#~$*?^{}&|-]+([\.][A-Z0-9_'%=+!`#~$*?^{}&|-]+)*@[A-Z0-9-]+(\.[A-Z0-9-]+)+$/i;
+    return regex.test(email); 
+}
+   
+$("#submit").click(function(){
+
+if($("#Email").val() == ""){
+    missing+= "<p>Please fill the Email<p>"
+}
+if($("#Phone").val() == ""){
+    missing+= "<p>Please fill the Phone Number</p>"
+}
+if($("#Password").val() == ""){
+    missing+= "<p>Please fill the Password<p>"
+}
+
+if(isEmail($("#Email").val()) == false){
+    errmsg += "<p>Please enter valid Email</p>";
+ }
+ if($.isNumeric($("#Phone").val()) == false){
+    errmsg += "<p>Please enter valid phone number</p>"
+}
+if($("#Password").val() != $("#ConfirmPassword").val()){
+    errmsg += "<p>Password doesn not match</p>";
+}
+if(errmsg == ""){
+    $("#success").html("You are registered");
+}else{
+    $("#error").html(errmsg + missing)
+}
+});
+
+</script>
+
+    
+</body>
+</html>
